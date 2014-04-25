@@ -1,0 +1,8 @@
+INSERT INTO `ftpd`
+  (`User`, `status`, `Password`, `Uid`, `Gid`, `Dir`,
+   `ULBandwidth`, `DLBandwidth`, `comment`, `ipaccess`,
+   `QuotaSize`, `QuotaFiles`)
+VALUES
+  ('<%= @username %>', '1', MD5('<%= @password %>'), '<%= @uid %>', '<%= @gid %>', '<%= @home %>',
+   '1000', '1000', 'Managed by puppet (<%= @name %>)', '*',
+   '0', '0');

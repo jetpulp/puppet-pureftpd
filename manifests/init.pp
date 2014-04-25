@@ -386,7 +386,7 @@ class pureftpd (
 
     mysql::grant { 'pureftpd':
       mysql_user       => $pureftpd::mysql_username,
-      mysql_password   => $pureftpd::mysql_password,
+      mysql_password   => $pureftpd::manage_mysql_password,
       mysql_db         => $pureftpd::mysql_database,
       mysql_privileges => 'SELECT, INSERT, UPDATE, DELETE, CREATE, DROP',
     }
@@ -394,9 +394,10 @@ class pureftpd (
     mysql::query { 'pureftpd-create-table':
       mysql_query => template('pureftpd/mysql-table-create.sql.erb'),
       mysql_db    => $pureftpd::mysql_database,
+      require     => Mysql::Grant['pureftpd'],
     }
 
-    file { '/etc/pure-ftpd/auth/65unix':
+    file { '/etc/pure-ftpd/db/65unix':
       ensure => absent,
     }
   }
