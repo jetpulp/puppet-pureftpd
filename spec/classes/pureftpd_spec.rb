@@ -23,6 +23,8 @@ describe 'pureftpd' do
     it { should contain_service('pureftpd').with_ensure('running') }
     it { should contain_service('pureftpd').with_enable('true') }
     it { should contain_monitor__process('pureftpd_process').with_enable('true') }
+    it { should contain_monitor__port('pureftpd_tcp_42').with_port('42') }
+    it { should contain_monitor__port('pureftpd_tcp_42').with_protocol('tcp') }
     it { should contain_firewall('pureftpd_tcp_42').with_enable('true') }
   end
 
@@ -139,6 +141,20 @@ describe 'pureftpd' do
     it { should contain_package('pureftpd').with_ensure('present') }
     it { should contain_package('pureftpd').with_name('pure-ftpd-mysql') }
     it { should_not contain_package('pure-ftpd').with_ensure('present') }
+    # MySQL GRANT
+    it { should contain_mysql__grant('pureftpd').with_mysql_user('pureftpd') }
+    it { should contain_mysql__grant('pureftpd').with_mysql_db('pureftpd') }
+    # MySQL CREATE TABLE
+    it { should contain_mysql__query('pureftpd-create-table').with_mysql_db('pureftpd') }
+    it { should contain_mysql__query('pureftpd-create-table').with_mysql_query(/CREATE TABLE ftpd/) }
+    # remove unix binding
+    it { should contain_file('/etc/pure-ftpd/db/65unix').with_ensure('absent') }
   end
+
+  describe 'Test debug' do
+    let(:params) { { :debug => true } }
+    it { should contain_file('debug_pureftpd').with_ensure('present') }
+  end
+
 end
 
