@@ -19,7 +19,7 @@ define pureftpd::user (
   $uid,
   $gid,
   $username = $name,
-  $home     = "/home/$name"
+  $home     = "/home/${name}"
 ) {
   include pureftpd
 
