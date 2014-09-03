@@ -136,14 +136,5 @@ describe 'pureftpd' do
     it { should contain_package('pure-ftpd-mysql').with_ensure('present') }
     it { should_not contain_package('pure-ftpd').with_ensure('present') }
   end
-
-  describe 'Test mysql_server is correctly configured' do
-    let(:params) { {
-      :storage      => 'mysql',
-      :mysql_server => 'mysql.example42.fr',
-    } }
-
-    it { should contain_pureftpd_config('
-  end
 end
 
