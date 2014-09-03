@@ -6,6 +6,7 @@ fixtures:
     "iptables": "git://github.com/example42/puppet-iptables.git"
     "concat": "git://github.com/example42/puppet-concat.git"
     "stdlib": "https://github.com/example42/puppetlabs-stdlib.git"
+    "mysql": "https://github.com/example42/puppet-mysql.git"
   symlinks:
     "pureftpd": "#{source_dir}"
 

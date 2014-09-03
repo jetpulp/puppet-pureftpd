@@ -73,14 +73,17 @@ describe 'pureftpd' do
 
   describe 'Test customizations - custom class' do
     let(:params) { {:my_class => "pureftpd::spec" } }
-    it { should contain_file('pureftpd.conf').with_content(/rspec.example42.com/) }
+    it { should contain_service('pureftpd').with_hasrestart(/true/) }
   end
 
   describe 'Test service autorestart' do
-    let(:params) { {:service_autorestart => "no" } }
+    let(:params) { {
+      :service_autorestart => "no",
+      :storage             => 'mysql',
+
+    } }
     it 'should not automatically restart the service, when service_autorestart => false' do
-      content = catalogue.resource('file', 'pureftpd.conf').send(:parameters)[:notify]
-      content.should be_nil
+      should contain_file('pureftpd-mysql.conf').with_notify(nil)
     end
   end
 
@@ -133,7 +136,8 @@ describe 'pureftpd' do
   describe 'Test storage selection' do
     let(:facts) { { :operatingsystem        => 'Debian' } }
     let(:params) { { :storage => 'mysql' } }
-    it { should contain_package('pure-ftpd-mysql').with_ensure('present') }
+    it { should contain_package('pureftpd').with_ensure('present') }
+    it { should contain_package('pureftpd').with_name('pure-ftpd-mysql') }
     it { should_not contain_package('pure-ftpd').with_ensure('present') }
   end
 end

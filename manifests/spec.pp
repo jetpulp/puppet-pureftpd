@@ -15,8 +15,8 @@ class pureftpd::spec inherits pureftpd {
   # Note that you can achieve this same result with just:
   # class { "pureftpd": template => "pureftpd/spec.erb" }
 
-  File['pureftpd.conf'] {
-    content => template('pureftpd/spec.erb'),
+  Service['pureftpd'] {
+    hasrestart => true,
   }
 
 }
