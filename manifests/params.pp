@@ -59,7 +59,7 @@ class pureftpd::params {
   }
 
   $config_dir = $::operatingsystem ? {
-    default => '/etc/pure-ftpd/',
+    default => '/etc/pure-ftpd',
   }
 
   $config_file_mode = $::operatingsystem ? {
