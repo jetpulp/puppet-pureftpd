@@ -116,7 +116,8 @@
 #   and $firewall_tool
 #
 # [*firewall_src*]
-#   Define which source ip/net allow for firewalling pureftpd. Default: 0.0.0.0/0
+#   Define which source ip/net allow for firewalling pureftpd.
+#   Default: 0.0.0.0/0
 #   Can be defined also by the (top scope) variables $pureftpd_firewall_src
 #   and $firewall_src
 #
@@ -357,19 +358,19 @@ class pureftpd (
 
   ### Managed resources
   package { 'pureftpd':
-    name   => $pureftpd::manage_package_name,
     ensure => $pureftpd::manage_package,
+    name   => $pureftpd::manage_package_name,
     noop   => $pureftpd::bool_noops,
   }
 
   service { 'pureftpd':
-    ensure     => $pureftpd::manage_service_ensure,
-    name       => $pureftpd::manage_service_name,
-    enable     => $pureftpd::manage_service_enable,
-    hasstatus  => $pureftpd::service_status,
-    pattern    => $pureftpd::process,
-    require    => Package['pureftpd'],
-    noop       => $pureftpd::bool_noops,
+    ensure    => $pureftpd::manage_service_ensure,
+    name      => $pureftpd::manage_service_name,
+    enable    => $pureftpd::manage_service_enable,
+    hasstatus => $pureftpd::service_status,
+    pattern   => $pureftpd::process,
+    require   => Package['pureftpd'],
+    noop      => $pureftpd::bool_noops,
   }
 
   if $pureftpd::storage == 'mysql' {
