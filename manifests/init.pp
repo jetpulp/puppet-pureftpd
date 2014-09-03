@@ -452,7 +452,7 @@ class pureftpd (
         noop     => $pureftpd::bool_noops,
       }
     }
-    if $pureftpd::service != '' {
+    if $pureftpd::manage_service_name != '' {
       monitor::process { 'pureftpd_process':
         process  => $pureftpd::process,
         service  => $pureftpd::service,
