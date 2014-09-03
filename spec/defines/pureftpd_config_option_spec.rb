@@ -10,7 +10,7 @@ describe 'pureftpd::config_option', :type => :define do
 
 
   describe 'Simple call' do
-    it { should contain_file('pureftpd-config_option-my_example42_params').with_path('/etc/pure-ftd/conf/my_example42_params') }
+    it { should contain_file('pureftpd-config_option-my_example42_params').with_path('/etc/pure-ftpd/conf/my_example42_params') }
     it { should contain_file('pureftpd-config_option-my_example42_params').with_content('42') }
   end
 
@@ -20,7 +20,7 @@ describe 'pureftpd::config_option', :type => :define do
       :config_name => 'other_params',
     } }
 
-    it { should contain_file('pureftpd-config_option-my_example42_params').with_path('/etc/pure-ftd/conf/other_params') }
+    it { should contain_file('pureftpd-config_option-my_example42_params').with_path('/etc/pure-ftpd/conf/other_params') }
     it { should contain_file('pureftpd-config_option-my_example42_params').with_content('42') }
   end
 
