@@ -21,6 +21,21 @@ describe 'pureftpd::user', :type => :define do
     it { should contain_mysql__query('pureftpd-create-user-username42').with_mysql_query(/\('username42', '1', MD5\('password42'\), '42', '4242', '\/home\/username42'/) }
   end
 
+  describe 'Delete with MySQL backend' do
+    let(:facts) { {
+      :pureftpd_storage => 'mysql',
+    } }
+  let(:params) { {
+    :ensure   => 'absent',
+    :password => 'password42',
+    :uid      => '42',
+    :gid      => '4242',
+  } }
+
+    it { should contain_mysql__query('pureftpd-create-user-username42').with_mysql_db('pureftpd') }
+    it { should contain_mysql__query('pureftpd-create-user-username42').with_mysql_query(/DELETE FROM `ftpd` WHERE user = 'username42';/) }
+  end
+
 
 end
 
